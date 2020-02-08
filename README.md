@@ -1,3 +1,5 @@
 Profile editor with database user table
-# res-position
+Profile <- Positions
+Profile <- Education -> Institution
+Logins stored in user table.
 # res-education
