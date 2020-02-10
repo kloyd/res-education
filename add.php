@@ -123,7 +123,6 @@ countEdu = 0;
 // http://stackoverflow.com/questions/17650776/add-remove-html-inside-div-using-javascript
 $(document).ready(function(){
   window.console && console.log('Document ready called.');
-  $('.school').autocomplete({ source: "school.php" });
   $('#addPos').click(function(event){
     event.preventDefault();
     if (countPos >= 9) {
@@ -149,15 +148,22 @@ $(document).ready(function(){
       }
       countEdu++;
       window.console && console.log("Adding education " + countEdu);
+
       $('#education_fields').append(
         '<div id="education'+countEdu+'"> \
         <p>Year: <input type="text" name="eduyear'+countEdu+'" value="" /> \
         <input type="button" value="-" \
             onclick="$(\'#education'+countEdu+'\').remove();return false;"></p> \
-        School: <input type="text" size="80" name="edu_school'+countEdu+'" \
+        <p>School: <input class ="school" type="text" size="80" name="edu_school'+countEdu+'" \
         class="school" value="" /> \
-        </div>');
-      });
+        </p></div>'
+      );
+
+      $('.school').autocomplete({
+         source: "school.php"
+       });
+
+    });
 
 });
 
