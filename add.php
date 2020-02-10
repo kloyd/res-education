@@ -151,7 +151,7 @@ $(document).ready(function(){
 
       $('#education_fields').append(
         '<div id="education'+countEdu+'"> \
-        <p>Year: <input type="text" name="eduyear'+countEdu+'" value="" /> \
+        <p>Year: <input type="text" name="edu_year'+countEdu+'" value="" /> \
         <input type="button" value="-" \
             onclick="$(\'#education'+countEdu+'\').remove();return false;"></p> \
         <p>School: <input class ="school" type="text" size="80" name="edu_school'+countEdu+'" \
