@@ -1,4 +1,6 @@
 <?php
+# util.php
+# Utility Functions.
 
 function checkLoggedIn() {
   if (! isset($_SESSION['user_id'])) {
@@ -62,7 +64,19 @@ function validatePos() {
 }
 
 function validateEdu() {
-  // TODO: Validate education
+  for($i=1; $i<=9; $i++) {
+    if (!isset($_POST['edu_year'.$i])) continue;
+    if (!isset($_POST['edu_school'.$i])) continue;
+    $year = $_POST['edu_year'.$i];
+    $school = $_POST['edu_school'.$i];
+    if (strlen($year) == 0 || strlen($school) == 0 ) {
+      return "All fields are required";
+    }
+
+    if (! is_numeric($year)) {
+      return "Education year must be numeric";
+    }
+  }
 }
 
 function insertPositions($pdo, $profile_id) {

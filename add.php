@@ -4,17 +4,7 @@ require_once "util.php";
 
 session_start();
 
-if (! isset($_SESSION['user_id'])) {
-  die("ACCESS DENIED");
-  return;
-}
-
-if ( isset($_SESSION['name'])) {
-  $name = $_SESSION['name'];
-} else {
-  die('ACCESS DENIED');
-  return;
-}
+checkLoggedIn();
 
 if ( isset($_POST['cancel'] ) ) {
     // cancel sends back to index
@@ -34,6 +24,13 @@ if ( isset($_POST['first_name']) && isset($_POST['last_name'])
   }
 
   $msg = validatePos();
+  if (is_string($msg)) {
+    $_SESSION['error'] = $msg;
+    header('Location: add.php');
+    return;
+  }
+
+  $msg = validateEdu();
   if (is_string($msg)) {
     $_SESSION['error'] = $msg;
     header('Location: add.php');
@@ -76,7 +73,7 @@ if ( isset($_POST['first_name']) && isset($_POST['last_name'])
 <body>
   <div class="container">
     <?php flashMessages(); ?>
-  <?php echo("<h1>Adding Profile for $name</h1>\n"); ?>
+  <h1>Adding Profile for <?= $_SESSION['name'] ?></h1>
   <form method="post">
   <p>First Name:
   <input type="text" name="first_name" size="60"/></p>
@@ -99,7 +96,7 @@ if ( isset($_POST['first_name']) && isset($_POST['last_name'])
   </div>
 </p>
 <p>
-  <input type="submit" value="Add">
+  <input type="submit" name="Add" value="Add">
   <input type="submit" name="cancel" value="Cancel">
   </p>
 </form>

@@ -19,14 +19,21 @@ if ( isset($_POST['first_name']) && isset($_POST['last_name'])
     $msg = validateProfile();
     if (is_string($msg)) {
       $_SESSION['error'] = $msg;
-      header('Location: add.php');
+      header('Location: edit.php');
       return;
     }
 
     $msg = validatePos();
     if (is_string($msg)) {
       $_SESSION['error'] = $msg;
-      header('Location: add.php');
+      header('Location: edit.php');
+      return;
+    }
+
+    $msg = validateEdu();
+    if (is_string($msg)) {
+      $_SESSION['error'] = $msg;
+      header('Location: edit.php');
       return;
     }
 
@@ -124,10 +131,10 @@ $profile_id = $row['profile_id'];
          <div id="education<?= $countEdu ?>">
          <p>Year: <input type="text" name="edu_year<?= $countEdu ?>" value="<?= $edu['year'] ?>" />
          <input type="button" value="-"
-             onclick="$(\'#education<?= $countEdu ?>\').remove();return false;"></p>
+             onclick="$('#education<?= $countEdu ?>').remove();return false;"></p>
          <p>School: <input class ="school" type="text" size="80" name="edu_school<?= $countEdu ?>"
          class="school" value="<?= htmlentities($edu['name']) ?>" />
-         </p></div>'
+         </p></div>
       <?php }
     } ?>
     </div>
@@ -141,7 +148,7 @@ $profile_id = $row['profile_id'];
     <div class="position" id="position<?= $countPos ?>">
       <p>Year: <input type="text" name="year<?= $countPos ?>" value="<?= $pos['year'] ?>">
       <input type="button" value="-" onclick="$('#position<?= $countPos ?>').remove();return false;"></p>
-      <textarea name="desc<?= $countPos ?>" rows="8" cols="80"><?= $pos['description'] ?></textarea>
+      <textarea name="desc<?= $countPos ?>" rows="8" cols="80"><?= htmlentities($pos['description']) ?></textarea>
     </div>
     <?php }
   } ?>

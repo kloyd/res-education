@@ -55,7 +55,7 @@ $profile_id = $row['profile_id'];
   Education
   <ul>
     <?php foreach ($educations as $edu) { ?>
-<li><?= $edu['year'] ?> - <?= $edu['name'] ?>
+<li><?= $edu['year'] ?> - <?= htmlentities($edu['name']) ?>
     <?php } ?>
   </ul>
 </p>
@@ -63,7 +63,7 @@ $profile_id = $row['profile_id'];
   Positions
 <ul>
   <?php foreach ($positions as $pos) { ?>
-  <li><?= $pos['year'] ?> - <?= $pos['description'] ?></li>
+  <li><?= $pos['year'] ?> - <?= htmlentities($pos['description']) ?></li>
 <?php } ?>
 </ul>
 </p>
