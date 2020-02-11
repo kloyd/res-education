@@ -21,6 +21,7 @@ if ( $row === false ) {
 }
 
 $positions = loadPos($pdo, $_REQUEST['profile_id']);
+$educations = loadEdu($pdo, $_REQUEST['profile_id']);
 
 // Flash pattern
 flashMessages();
@@ -50,11 +51,22 @@ $profile_id = $row['profile_id'];
 <p>Summary:<br/>
 <?= $su ?><p>
 </p>
+<p>
+  Education
+  <ul>
+    <?php foreach ($educations as $edu) { ?>
+<li><?= $edu['year'] ?> - <?= $edu['name'] ?>
+    <?php } ?>
+  </ul>
+</p>
+<p>
+  Positions
 <ul>
   <?php foreach ($positions as $pos) { ?>
   <li><?= $pos['year'] ?> - <?= $pos['description'] ?></li>
 <?php } ?>
 </ul>
+</p>
 
 <a href="index.php">Done</a>
 </div>

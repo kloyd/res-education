@@ -1,5 +1,19 @@
 <?php
 
+function checkLoggedIn() {
+  if (! isset($_SESSION['user_id'])) {
+    die("ACCESS DENIED");
+    return;
+  }
+
+  if ( isset($_SESSION['name'])) {
+    $name = $_SESSION['name'];
+  } else {
+    die('ACCESS DENIED');
+    return;
+  }
+
+}
 # Flash Messages
 function flashMessages() {
   if ( isset($_SESSION['error']) ) {

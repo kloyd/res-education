@@ -4,10 +4,12 @@ require_once "util.php";
 
 session_start();
 
-if ( isset($_SESSION['name'])) {
-  $name = htmlentities($_SESSION['name']);
-} else {
-  die('Not logged in');
+checkLoggedIn();
+
+if ( isset($_POST['cancel'] ) ) {
+    // cancel sends back to index
+    header("Location: index.php");
+    return;
 }
 
 if ( isset($_POST['first_name']) && isset($_POST['last_name'])
@@ -100,7 +102,7 @@ $profile_id = $row['profile_id'];
 </head>
 <body>
   <div class="container">
-  <h1>Editing Profile for <?= $name; ?></h1>
+  <h1>Editing Profile for <?= $_SESSION['name']; ?></h1>
   <form method="post">
   <p>First Name:
   <input type="text" name="first_name" size="60" value="<?= $fn ?>"/></p>
@@ -147,7 +149,7 @@ $profile_id = $row['profile_id'];
   <input type="hidden" name="profile_id" value="<?= $profile_id ?>">
   <p>
     <input type="submit" value="Save" />
-    <a href="index.php">Cancel</a>
+    <input type="submit" name="cancel" value="Cancel">
   </p>
 </form>
 <script>
